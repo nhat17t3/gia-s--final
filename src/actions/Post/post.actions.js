@@ -25,6 +25,28 @@ export const getListPost = () => {
   };
 };
 
+export const getListPostRecommend = () => {
+  return async (dispatch) => {
+    dispatch({ type: postConstants.GET_ALL_POST_RECOMMEND_REQUEST });
+    const res = await axios.get(`/post/recommendation`);
+    
+    if (res.status === 200) {
+      const { post } = res.data;
+      dispatch({
+        type: postConstants.GET_ALL_POST_RECOMMEND_SUCCESS,
+        payload: {
+          listPost: post,
+        },
+      });
+    } else {
+      dispatch({
+        type: postConstants.GET_ALL_POST_RECOMMEND_FAILURE,
+        payload: { error: res.data.error },
+      });
+    }
+  };
+};
+
 export const getListPostByToken = () => {
     return async (dispatch) => {
       dispatch({ type: postConstants.GET_ALL_POST_REQUEST_BY_TOKEN });

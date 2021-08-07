@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { getListPost } from "../../../actions";
+import { getListPost, getListPostRecommend } from "../../../actions";
 import Layout from "../../../components/Layout";
 import Pagination from "../../../components/Pagination";
 import PostItemShare from "./PostItemShare";
@@ -12,6 +12,7 @@ ListPostShare.propTypes = {};
 function ListPostShare(props) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const role = localStorage.getItem("role");
 
   const [subject, setSubject] = useState("All");
   const [grade, setGrade] = useState("All");
@@ -24,8 +25,11 @@ function ListPostShare(props) {
   const [postsPerPage] = useState(5);
 
   useEffect(() => {
-    dispatch(getListPost());
+    role === "ROLE_TUTOR" ?
+    dispatch(getListPostRecommend()):dispatch(getListPost());
   }, []);
+
+
 
   let posts = useSelector((state) => state.posts.listPost);
 

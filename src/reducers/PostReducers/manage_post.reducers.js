@@ -30,6 +30,29 @@ export default (state = initState, action) => {
         error: action.payload.error,
       };
       break;
+    
+      case postConstants.GET_ALL_POST_RECOMMEND_REQUEST:
+        state = {
+          ...state,
+          loading: true,
+        };
+        break;
+      case postConstants.GET_ALL_POST_RECOMMEND_SUCCESS:
+        state = {
+          ...state,
+          loading: false,
+          listPost: action.payload.listPost,
+        };
+        break;
+      case postConstants.GET_ALL_POST_RECOMMEND_FAILURE:
+        state = {
+          ...state,
+          loading: false,
+          error: action.payload.error,
+        };
+        break;
+
+
       case postConstants.GET_ALL_POST_REQUEST_BY_TOKEN:
         state = {
           ...state,
